@@ -10,6 +10,12 @@ The project focuses on **Probability of Default (PD)** estimation for **Low Defa
 
 The objective is to compare several prudent PD estimation approaches and assess how they behave under sparse-default conditions.
 
+## Mathematical foundations
+
+The numerical implementation is supported by a dedicated mathematical note containing the main derivations used in the project: the Binomial default model, classical Pluto–Tasche quantiles, the zero- and one-default cases, Beta-prior extensions, hierarchical shrinkage, Empirical-Bayes calibration, and the Wilson score upper bound.
+
+**[Read the mathematical foundations →](docs/mathematical_foundations.md)**
+
 ## Main methods
 
 The project studies and compares:
@@ -50,6 +56,9 @@ The hierarchical approach is particularly useful for reducing instability in sma
 
 ```text
 low-default-portfolio-credit-risk/
+│
+├── docs/
+│   └── mathematical_foundations.md
 │
 ├── notebooks/
 │   └── credit_risk_ldp.ipynb
