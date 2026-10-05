@@ -54,9 +54,6 @@ low-default-portfolio-credit-risk/
 ├── notebooks/
 │   └── credit_risk_ldp.ipynb
 │
-├── report/
-│   └── project_report.pdf
-│
 ├── README.md
 ├── requirements.txt
 └── .gitignore
@@ -94,14 +91,6 @@ notebooks/credit_risk_ldp.ipynb
 ```
 
 and run the notebook sequentially after placing the required dataset in the local `data/` directory.
-
-## Report
-
-A detailed academic report presenting the mathematical background, methodology, implementation and results is available in:
-
-```text
-report/project_report.pdf
-```
 
 ## Author
 
