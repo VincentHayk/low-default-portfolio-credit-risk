@@ -65,13 +65,7 @@ Examples include:
 
 If the PD is estimated empirically, one obtains:
 
-$$
-\mathrm{PD}_{\mathrm{empirical}}
-=
-\frac{\text{number of defaults}}{\text{number of exposures}}
-=
-0\% \quad \text{or} \quad 0.01\%.
-$$
+<p align="center"><img src="equations/eq_001.png" alt="Equation 1"></p>
 
 The report argues that values of this magnitude may be considered insufficiently prudent for regulatory purposes such as Basel III.
 
@@ -94,41 +88,27 @@ A default indicator is modeled as:
 
 Let $X_i$ denote the default indicator of exposure $i$:
 
-$$
-X_i = 1 \qquad \text{if exposure } i \text{ defaults},
-$$
+<p align="center"><img src="equations/eq_002.png" alt="Equation 2"></p>
 
-$$
-X_i = 0 \qquad \text{otherwise}.
-$$
+<p align="center"><img src="equations/eq_003.png" alt="Equation 3"></p>
 
 Each exposure is modeled as
 
-$$
-X_i \sim \mathrm{Bernoulli}(p),
-$$
+<p align="center"><img src="equations/eq_004.png" alt="Equation 4"></p>
 
 where $p$ is the unknown PD.
 
 If there are $N$ exposures, the total number of defaults is
 
-$$
-k = \sum_{i=1}^{N} X_i.
-$$
+<p align="center"><img src="equations/eq_005.png" alt="Equation 5"></p>
 
 Therefore:
 
-$$
-k \sim \mathrm{Binomial}(N,p).
-$$
+<p align="center"><img src="equations/eq_006.png" alt="Equation 6"></p>
 
 The corresponding probability mass function is
 
-$$
-\mathbb{P}(K=k)
-=
-\binom{N}{k}p^k(1-p)^{N-k}.
-$$
+<p align="center"><img src="equations/eq_007.png" alt="Equation 7"></p>
 
 This model describes the theoretical behavior of the number of defaults.
 
@@ -136,56 +116,29 @@ This model describes the theoretical behavior of the number of defaults.
 
 The report then considers a plausible distribution for $p$ after observing $k$ defaults among $N$ exposures:
 
-$$
-p \sim \mathrm{Beta}(k+1,N-k).
-$$
+<p align="center"><img src="equations/eq_008.png" alt="Equation 8"></p>
 
 Its density is written as:
 
-$$
-f(p)
-=
-\frac{N!}{k!(N-k-1)!}
-p^k(1-p)^{N-k-1}
-\mathbf{1}_{[0,1]}(p).
-$$
+<p align="center"><img src="equations/eq_009.png" alt="Equation 9"></p>
 
 Because $p$ is itself a probability, its density is naturally defined only over $[0,1]$.
 
 For two bounds $a$ and $b$,
 
-$$
-\mathbb{P}(a\lt p\lt b)
-=
-\int_a^b f(p)\,dp
-=
-\int_a^b
-\frac{N!}{k!(N-k-1)!}
-p^k(1-p)^{N-k-1}\,dp.
-$$
+<p align="center"><img src="equations/eq_010.png" alt="Equation 10"></p>
 
 ### Why not use the mean?
 
 A first idea would be to use the mean of the distribution of $p$:
 
-$$
-\mathbb{E}(p)
-=
-\int_0^1 p f(p)\,dp
-=
-\int_0^1
-p
-\frac{N!}{k!(N-k-1)!}
-p^k(1-p)^{N-k-1}\,dp.
-$$
+<p align="center"><img src="equations/eq_011.png" alt="Equation 11"></p>
 
 However, the report argues that this estimate is not sufficiently prudent because it may underestimate PD.
 
 A more conservative choice is therefore to specify a confidence level, for example 90% or 95%, and to search numerically for a value $p^\star$ such that
 
-$$
-\mathbb{P}(p\lt p^\star)=q,
-$$
+<p align="center"><img src="equations/eq_012.png" alt="Equation 12"></p>
 
 where $q$ denotes the chosen confidence level.
 
@@ -193,17 +146,7 @@ The value $p^\star$ is the **quantile at level $q$**.
 
 Equivalently, $p^\star$ solves
 
-$$
-\mathbb{P}(0\lt p\lt p^\star)
-=
-\int_0^{p^\star}f(p)\,dp
-=
-\int_0^{p^\star}
-\frac{N!}{k!(N-k-1)!}
-p^k(1-p)^{N-k-1}\,dp
-=
-q.
-$$
+<p align="center"><img src="equations/eq_013.png" alt="Equation 13"></p>
 
 Interpretation:
 
@@ -218,95 +161,53 @@ For example, with $q=95\%$, the chosen PD belongs to the upper 5% of plausible P
 
 When no default is observed,
 
-$$
-p \sim \mathrm{Beta}(1,N).
-$$
+<p align="center"><img src="equations/eq_014.png" alt="Equation 14"></p>
 
 The density becomes
 
-$$
-f(p)
-=
-\frac{N!}{(N-1)!}(1-p)^{N-1}
-=
-N(1-p)^{N-1}.
-$$
+<p align="center"><img src="equations/eq_015.png" alt="Equation 15"></p>
 
 Hence
 
-$$
-\mathbb{P}(0\lt p\lt p^\star)=\int_0^{p^\star}f(p)\,dp
-$$
+<p align="center"><img src="equations/eq_016.png" alt="Equation 16"></p>
 
-$$
-\mathbb{P}(0\lt p\lt p^\star)=\int_0^{p^\star}N(1-p)^{N-1}\,dp
-$$
+<p align="center"><img src="equations/eq_017.png" alt="Equation 17"></p>
 
-$$
-\mathbb{P}(0\lt p\lt p^\star)=-\left[(1-p)^N\right]_0^{p^\star}
-$$
+<p align="center"><img src="equations/eq_018.png" alt="Equation 18"></p>
 
-$$
-\mathbb{P}(0\lt p\lt p^\star)=-\left((1-p^\star)^N-1\right)
-$$
+<p align="center"><img src="equations/eq_019.png" alt="Equation 19"></p>
 
-$$
-\mathbb{P}(0\lt p\lt p^\star)=1-(1-p^\star)^N
-$$
+<p align="center"><img src="equations/eq_020.png" alt="Equation 20"></p>
 
 Imposing the confidence level gives
 
-$$
-1-(1-p^\star)^N=q.
-$$
+<p align="center"><img src="equations/eq_021.png" alt="Equation 21"></p>
 
 Therefore:
 
-$$
-1-(1-p^\star)^N=q
-$$
+<p align="center"><img src="equations/eq_022.png" alt="Equation 22"></p>
 
-$$
-1-q=(1-p^\star)^N
-$$
+<p align="center"><img src="equations/eq_023.png" alt="Equation 23"></p>
 
-$$
-1-p^\star=(1-q)^{1/N}
-$$
+<p align="center"><img src="equations/eq_024.png" alt="Equation 24"></p>
 
-$$
-\boxed{p^\star=1-(1-q)^{1/N}}
-$$
+<p align="center"><img src="equations/eq_025.png" alt="Equation 25"></p>
 
 So the closed-form estimator is
 
-$$
-\boxed{
-p^\star = 1-(1-q)^{1/N}
-}.
-$$
+<p align="center"><img src="equations/eq_026.png" alt="Equation 26"></p>
 
 For $q=95\%$ and $N=3000$:
 
-$$
-p^\star=1-(1-q)^{1/N}
-$$
+<p align="center"><img src="equations/eq_027.png" alt="Equation 27"></p>
 
-$$
-p^\star=1-(0.05)^{1/3000}
-$$
+<p align="center"><img src="equations/eq_028.png" alt="Equation 28"></p>
 
-$$
-p^\star=0.000998
-$$
+<p align="center"><img src="equations/eq_029.png" alt="Equation 29"></p>
 
-$$
-p^\star=0.0998\%
-$$
+<p align="center"><img src="equations/eq_030.png" alt="Equation 30"></p>
 
-$$
-p^\star\approx0.1\%
-$$
+<p align="center"><img src="equations/eq_031.png" alt="Equation 31"></p>
 
 The resulting PD is therefore approximately **0.1%**. It is very low, which is consistent with the fact that no default was observed, but it remains strictly positive.
 
@@ -318,73 +219,37 @@ This is the simplest case.
 
 With one observed default,
 
-$$
-p \sim \mathrm{Beta}(2,N-1).
-$$
+<p align="center"><img src="equations/eq_032.png" alt="Equation 32"></p>
 
 The density is
 
-$$
-f(p)
-=
-\frac{N!}{(N-2)!}
-p(1-p)^{N-2}
-=
-N(N-1)p(1-p)^{N-2}.
-$$
+<p align="center"><img src="equations/eq_033.png" alt="Equation 33"></p>
 
 The cumulative probability is
 
-$$
-\mathbb{P}(0\lt p\lt p^\star)
-=
-\int_0^{p^\star}
-N(N-1)p(1-p)^{N-2}\,dp.
-$$
+<p align="center"><img src="equations/eq_034.png" alt="Equation 34"></p>
 
 The report performs the integration as follows:
 
-$$
-\mathbb{P}(0\lt p\lt p^\star)=N(N-1)\left(\left[-\frac{1}{N-1}p(1-p)^{N-1}\right]_0^{p^\star}+\int_0^{p^\star}\frac{1}{N-1}(1-p)^{N-1}\,dp\right)
-$$
+<p align="center"><img src="equations/eq_035.png" alt="Equation 35"></p>
 
 Then:
 
-$$
-\mathbb{P}(0\lt p\lt p^\star)=N(N-1)\left(-\frac{1}{N-1}p^\star(1-p^\star)^{N-1}-\frac{1}{N-1}\left[\frac{1}{N}(1-p)^N\right]_0^{p^\star}\right)
-$$
+<p align="center"><img src="equations/eq_036.png" alt="Equation 36"></p>
 
-$$
-\mathbb{P}(0\lt p\lt p^\star)=-Np^\star(1-p^\star)^{N-1}-(1-p^\star)^N+1
-$$
+<p align="center"><img src="equations/eq_037.png" alt="Equation 37"></p>
 
-$$
-\mathbb{P}(0\lt p\lt p^\star)=1-(1-p^\star)^N-Np^\star(1-p^\star)^{N-1}
-$$
+<p align="center"><img src="equations/eq_038.png" alt="Equation 38"></p>
 
 Therefore $p^\star$ is obtained by solving
 
-$$
-\boxed{
-1-(1-p^\star)^N
--
-Np^\star(1-p^\star)^{N-1}
-=
-q
-}.
-$$
+<p align="center"><img src="equations/eq_039.png" alt="Equation 39"></p>
 
 Unlike the $k=0$ case, the solution is obtained numerically.
 
 For $q=95\%$ and $N=3000$, the report obtains by numerical bisection:
 
-$$
-p^\star
-=
-0.00158
-=
-0.158\%.
-$$
+<p align="center"><img src="equations/eq_040.png" alt="Equation 40"></p>
 
 This PD is slightly higher than in the zero-default case, which is consistent with $k=1\gt0$.
 
@@ -425,91 +290,47 @@ Concretely, it represents the initial knowledge or belief about the PD before ob
 
 The Pluto–Tasche formulation used above gives, after observing $N$ exposures and $k$ defaults:
 
-$$
-p
-\sim
-\mathrm{Beta}(k+1,N-k).
-$$
+<p align="center"><img src="equations/eq_041.png" alt="Equation 41"></p>
 
 This is interpreted in the report as a posterior distribution for $p$.
 
 More generally, in a Beta–Binomial Bayesian framework:
 
-$$
-k\mid p
-\sim
-\mathrm{Binomial}(N,p),
-$$
+<p align="center"><img src="equations/eq_042.png" alt="Equation 42"></p>
 
 and if the prior distribution is
 
-$$
-p
-\sim
-\mathrm{Beta}(\alpha,\beta),
-$$
+<p align="center"><img src="equations/eq_043.png" alt="Equation 43"></p>
 
 then the posterior distribution is
 
-$$
-\boxed{
-p\mid(k,N)
-\sim
-\mathrm{Beta}(\alpha+k,\beta+N-k)
-}.
-$$
+<p align="center"><img src="equations/eq_044.png" alt="Equation 44"></p>
 
 The report compares:
 
-$$
-p
-\sim
-\mathrm{Beta}(k+1,N-k)
-$$
+<p align="center"><img src="equations/eq_045.png" alt="Equation 45"></p>
 
 with
 
-$$
-p
-\sim
-\mathrm{Beta}(\alpha+k,\beta+N-k).
-$$
+<p align="center"><img src="equations/eq_046.png" alt="Equation 46"></p>
 
 From this comparison, it identifies the formal parameter correspondence
 
-$$
-\alpha=1,
-\qquad
-\beta=0.
-$$
+<p align="center"><img src="equations/eq_047.png" alt="Equation 47"></p>
 
 That would correspond to a $\mathrm{Beta}(1,0)$ prior, which is not a proper Beta distribution because valid Beta parameters must satisfy
 
-$$
-\alpha\gt 0,
-\qquad
-\beta\gt 0.
-$$
+<p align="center"><img src="equations/eq_048.png" alt="Equation 48"></p>
 
 The report therefore states that, as a first approximation and because $N$ is often very large, the Pluto–Tasche setup can be approximated by a Bayesian framework with a **uniform $\mathrm{Beta}(1,1)$ prior**.
 
 Thus:
 
-$$
-p
-\sim
-\mathrm{Beta}(1,1)
-=
-\mathrm{Beta}(0+1,1-0).
-$$
+<p align="center"><img src="equations/eq_049.png" alt="Equation 49"></p>
 
 The corresponding density is
 
-$$
-f(p)
-=
-1\cdot\mathbf{1}_{[0,1]}(p).
-$$
+<p align="center"><img src="equations/eq_050.png" alt="Equation 50"></p>
 
 The report interprets this as saying that, before observing the data, every PD value between 0 and 100% is considered possible, so no informative prior knowledge is introduced.
 
@@ -517,11 +338,7 @@ The report interprets this as saying that, before observing the data, every PD v
 
 An extension consists in choosing a non-uniform prior
 
-$$
-p
-\sim
-\mathrm{Beta}(\alpha,\beta).
-$$
+<p align="center"><img src="equations/eq_051.png" alt="Equation 51"></p>
 
 The report uses the usual pseudo-count interpretation:
 
@@ -538,47 +355,29 @@ The interpretation can also be seen through the Beta mean.
 
 If
 
-$$
-p
-\sim
-\mathrm{Beta}(\alpha,\beta),
-$$
+<p align="center"><img src="equations/eq_052.png" alt="Equation 52"></p>
 
 then
 
-$$
-\boxed{
-\mathbb{E}(p)
-=
-\frac{\alpha}{\alpha+\beta}
-}.
-$$
+<p align="center"><img src="equations/eq_053.png" alt="Equation 53"></p>
 
 Therefore:
 
 - if $\alpha$ is small and $\beta$ is large,
 
-$$
-\mathbb{E}(p)\to0,
-$$
+<p align="center"><img src="equations/eq_054.png" alt="Equation 54"></p>
 
 so a low PD is expected;
 
 - if $\alpha$ is large and $\beta$ is small,
 
-$$
-\mathbb{E}(p)\to1,
-$$
+<p align="center"><img src="equations/eq_055.png" alt="Equation 55"></p>
 
 so a high PD is expected;
 
 - if $\alpha=\beta=1$,
 
-$$
-\mathbb{E}(p)
-=
-\frac{1}{2}.
-$$
+<p align="center"><img src="equations/eq_056.png" alt="Equation 56"></p>
 
 ### Important modeling note retained from the report
 
@@ -586,49 +385,27 @@ The original report explicitly emphasizes that the **Pluto–Tasche method itsel
 
 Within that generalized Bayesian framework, one can choose
 
-$$
-p
-\sim
-\mathrm{Beta}(\alpha,\beta)
-$$
+<p align="center"><img src="equations/eq_057.png" alt="Equation 57"></p>
 
 according to prior information about the portfolio.
 
 After observing $N$ exposures and $k$ defaults, the posterior becomes
 
-$$
-p\mid(k,N)
-\sim
-\mathrm{Beta}(\alpha+k,\beta+N-k).
-$$
+<p align="center"><img src="equations/eq_058.png" alt="Equation 58"></p>
 
 A high posterior quantile $p^\star$ is then selected, as before.
 
 The posterior density used in the report is written as
 
-$$
-f(p)
-=
-\frac{(\alpha+\beta+N-1)!}
-{(\alpha+k-1)!(\beta+N-k-1)!}
-p^{\alpha+k-1}
-(1-p)^{\beta+N-k-1}
-\mathbf{1}_{[0,1]}(p).
-$$
+<p align="center"><img src="equations/eq_059.png" alt="Equation 59"></p>
 
 The prudent quantile is determined by
 
-$$
-\mathbb{P}(0\lt p\lt p^\star)=\int_0^{p^\star}f(p)\,dp
-$$
+<p align="center"><img src="equations/eq_060.png" alt="Equation 60"></p>
 
-$$
-\mathbb{P}(0\lt p\lt p^\star)=\int_0^{p^\star}\frac{(\alpha+\beta+N-1)!}{(\alpha+k-1)!(\beta+N-k-1)!}p^{\alpha+k-1}(1-p)^{\beta+N-k-1}\,dp
-$$
+<p align="center"><img src="equations/eq_061.png" alt="Equation 61"></p>
 
-$$
-\mathbb{P}(0\lt p\lt p^\star)=q
-$$
+<p align="center"><img src="equations/eq_062.png" alt="Equation 62"></p>
 
 The report considers levels such as $q=95\%$ or $q=90\%$.
 
@@ -667,37 +444,17 @@ Each segment $j$ then has:
 
 The key idea is that the segment PDs are not treated as unrelated quantities. They share a common portfolio-level prior parameterized by $\alpha$ and $\beta$:
 
-$$
-\forall j\in\{1,\ldots,J\},
-\qquad
-p_j
-\sim
-\mathrm{Beta}(\alpha,\beta).
-$$
+<p align="center"><img src="equations/eq_063.png" alt="Equation 63"></p>
 
 The report refers to this common higher-level distribution as an **hyper-prior**.
 
 For each segment, after observing $(k_j,N_j)$:
 
-$$
-\boxed{
-p_j\mid(k_j,N_j)
-\sim
-\mathrm{Beta}(\alpha+k_j,\beta+N_j-k_j)
-}.
-$$
+<p align="center"><img src="equations/eq_064.png" alt="Equation 64"></p>
 
 The report writes the corresponding density in the form
 
-$$
-f(p_j)
-=
-\frac{(\alpha+\beta+N_j-1)!}
-{(\alpha+k_j-1)!(\beta+N_j-k_j-1)!}
-p_j^{\alpha+k_j-1}
-(1-p_j)^{\beta+N_j-k_j-1}
-\mathbf{1}_{[0,1]}(p_j).
-$$
+<p align="center"><img src="equations/eq_065.png" alt="Equation 65"></p>
 
 As before, high quantiles are then used to obtain segment-level prudent PD estimates.
 
@@ -734,31 +491,15 @@ Using the initial Pluto–Tasche approach at a 95% level, the report obtains:
 
 For **Industry**:
 
-$$
-\mathrm{PD}
-=
-1-(0.05)^{1/3000}
-=
-0.1\%.
-$$
+<p align="center"><img src="equations/eq_066.png" alt="Equation 66"></p>
 
 For **Services**:
 
-$$
-\mathrm{PD}
-=
-0.19\%.
-$$
+<p align="center"><img src="equations/eq_067.png" alt="Equation 67"></p>
 
 For **Finance**:
 
-$$
-\mathrm{PD}
-=
-1-(0.05)^{1/200}
-=
-1.47\%.
-$$
+<p align="center"><img src="equations/eq_068.png" alt="Equation 68"></p>
 
 This result is surprising: the Finance segment is estimated to be more than ten times riskier than Industry despite having no additional observed default. The difference is driven mainly by the much smaller segment size.
 
@@ -781,83 +522,41 @@ The report first proposes a rough approximation:
 
 The common prior is therefore approximated as
 
-$$
-p_j
-\sim
-\mathrm{Beta}(\alpha,\beta)
-=
-\mathrm{Beta}(2,5700).
-$$
+<p align="center"><img src="equations/eq_069.png" alt="Equation 69"></p>
 
 The segment posterior distributions are then written as:
 
 For **Industry**:
 
-$$
-p_{\mathrm{Industry}}\sim\mathrm{Beta}(\alpha+k_j,\beta+N_j-k_j)
-$$
+<p align="center"><img src="equations/eq_070.png" alt="Equation 70"></p>
 
-$$
-p_{\mathrm{Industry}}\sim\mathrm{Beta}(2+0,5700+3000-0)
-$$
+<p align="center"><img src="equations/eq_071.png" alt="Equation 71"></p>
 
-$$
-\boxed{p_{\mathrm{Industry}}\sim\mathrm{Beta}(2,8700)}
-$$
+<p align="center"><img src="equations/eq_072.png" alt="Equation 72"></p>
 
 For **Services**:
 
-$$
-p_{\mathrm{Services}}\sim\mathrm{Beta}(\alpha+k_j,\beta+N_j-k_j)
-$$
+<p align="center"><img src="equations/eq_073.png" alt="Equation 73"></p>
 
-$$
-p_{\mathrm{Services}}\sim\mathrm{Beta}(2+1,5700+2500-1)
-$$
+<p align="center"><img src="equations/eq_074.png" alt="Equation 74"></p>
 
-$$
-\boxed{p_{\mathrm{Services}}\sim\mathrm{Beta}(3,8199)}
-$$
+<p align="center"><img src="equations/eq_075.png" alt="Equation 75"></p>
 
 For **Finance**:
 
-$$
-p_{\mathrm{Finance}}\sim\mathrm{Beta}(\alpha+k_j,\beta+N_j-k_j)
-$$
+<p align="center"><img src="equations/eq_076.png" alt="Equation 76"></p>
 
-$$
-p_{\mathrm{Finance}}\sim\mathrm{Beta}(2+0,5700+200-0)
-$$
+<p align="center"><img src="equations/eq_077.png" alt="Equation 77"></p>
 
-$$
-\boxed{p_{\mathrm{Finance}}\sim\mathrm{Beta}(2,5900)}
-$$
+<p align="center"><img src="equations/eq_078.png" alt="Equation 78"></p>
 
 The 95% prudent PD estimates given in the report are:
 
-$$
-\mathrm{PD}_{\mathrm{Industry}}
-=
-0.000545
-=
-0.0545\%.
-$$
+<p align="center"><img src="equations/eq_079.png" alt="Equation 79"></p>
 
-$$
-\mathrm{PD}_{\mathrm{Services}}
-=
-0.000768
-=
-0.0768\%.
-$$
+<p align="center"><img src="equations/eq_080.png" alt="Equation 80"></p>
 
-$$
-\mathrm{PD}_{\mathrm{Finance}}
-=
-0.000804
-=
-0.0804\%.
-$$
+<p align="center"><img src="equations/eq_081.png" alt="Equation 81"></p>
 
 These values are much closer to each other and are presented as economically more coherent than the independent segment estimates.
 
@@ -876,32 +575,15 @@ In an Empirical-Bayes framework:
 
 The marginal likelihood used in the report is
 
-$$
-\boxed{
-L(\alpha,\beta)
-=
-\prod_{j=1}^{J}
-\frac{
-B(\alpha+k_j,\beta+N_j-k_j)
-}{
-B(\alpha,\beta)
-}
-}.
-$$
+<p align="center"><img src="equations/eq_082.png" alt="Equation 82"></p>
 
 The Beta function is written as
 
-$$
-B(a,b)
-=
-\frac{(a-1)!(b-1)!}{(a+b-1)!}.
-$$
+<p align="center"><img src="equations/eq_083.png" alt="Equation 83"></p>
 
 Therefore, optimization algorithms can search for the values of $\alpha$ and $\beta$ that maximize
 
-$$
-L(\alpha,\beta).
-$$
+<p align="center"><img src="equations/eq_084.png" alt="Equation 84"></p>
 
 This is another level of generalization beyond the base Pluto–Tasche approach.
 
@@ -918,151 +600,59 @@ The starting point is again a portfolio with:
 
 The empirical PD estimator is
 
-$$
-\hat p
-=
-\frac{k}{N}.
-$$
+<p align="center"><img src="equations/eq_085.png" alt="Equation 85"></p>
 
 As before:
 
-$$
-k
-\sim
-\mathrm{Binomial}(N,p),
-$$
+<p align="center"><img src="equations/eq_086.png" alt="Equation 86"></p>
 
 with
 
-$$
-k
-=
-\sum_{i=1}^{N}X_i.
-$$
+<p align="center"><img src="equations/eq_087.png" alt="Equation 87"></p>
 
 The report uses:
 
-$$
-\mathbb{E}(k)
-=
-Np,
-$$
+<p align="center"><img src="equations/eq_088.png" alt="Equation 88"></p>
 
 and
 
-$$
-\sigma_k
-=
-\sqrt{Np(1-p)}.
-$$
+<p align="center"><img src="equations/eq_089.png" alt="Equation 89"></p>
 
 For large $N$, the Central Limit Theorem motivates
 
-$$
-\frac{
-\sum_{i=1}^{N}X_i-Np
-}{
-\sqrt{Np(1-p)}
-}
-\approx
-\mathcal{N}(0,1).
-$$
+<p align="center"><img src="equations/eq_090.png" alt="Equation 90"></p>
 
 Equivalently:
 
-$$
-\frac{k-Np}{\sqrt{Np(1-p)}}
-\approx
-\mathcal{N}(0,1).
-$$
+<p align="center"><img src="equations/eq_091.png" alt="Equation 91"></p>
 
 Dividing numerator and denominator appropriately by $N$ gives
 
-$$
-\frac{\hat p-p}{\sqrt{p(1-p)/N}}
-\approx
-\mathcal{N}(0,1).
-$$
+<p align="center"><img src="equations/eq_092.png" alt="Equation 92"></p>
 
 The usual normal/Wald approximation then replaces the unknown $p$ in the denominator by $\hat p$:
 
-$$
-\frac{\hat p-p}{\sqrt{\hat p(1-\hat p)/N}}
-\approx
-\mathcal{N}(0,1).
-$$
+<p align="center"><img src="equations/eq_093.png" alt="Equation 93"></p>
 
 For a standard normal variable $Z$,
 
-$$
-\mathbb{P}(-z\le Z\le z)
-=
-1-\alpha.
-$$
+<p align="center"><img src="equations/eq_094.png" alt="Equation 94"></p>
 
 Therefore:
 
-$$
-\mathbb{P}
-\left(
--z
-\le
-\frac{\hat p-p}{\sqrt{\hat p(1-\hat p)/N}}
-\le
-z
-\right)
-\approx
-1-\alpha.
-$$
+<p align="center"><img src="equations/eq_095.png" alt="Equation 95"></p>
 
 Isolating $p$ gives
 
-$$
-\mathbb{P}
-\left(
--z\sqrt{\frac{\hat p(1-\hat p)}{N}}
-\le
-\hat p-p
-\le
-z\sqrt{\frac{\hat p(1-\hat p)}{N}}
-\right)
-\approx
-1-\alpha.
-$$
+<p align="center"><img src="equations/eq_096.png" alt="Equation 96"></p>
 
 Hence:
 
-$$
-\mathbb{P}
-\left(
-\hat p
--
-z\sqrt{\frac{\hat p(1-\hat p)}{N}}
-\le
-p
-\le
-\hat p
-+
-z\sqrt{\frac{\hat p(1-\hat p)}{N}}
-\right)
-\approx
-1-\alpha.
-$$
+<p align="center"><img src="equations/eq_097.png" alt="Equation 97"></p>
 
 Or:
 
-$$
-\mathbb{P}
-\left(
-\hat p_{\mathrm{lower}}
-\le
-p
-\le
-\hat p_{\mathrm{upper}}
-\right)
-\approx
-1-\alpha.
-$$
+<p align="center"><img src="equations/eq_098.png" alt="Equation 98"></p>
 
 This is the classical normal interval.
 
@@ -1076,9 +666,7 @@ The report identifies several problems.
 
 If $k=0$,
 
-$$
-\hat p=0,
-$$
+<p align="center"><img src="equations/eq_099.png" alt="Equation 99"></p>
 
 and the normal interval may collapse to a zero PD estimate. The report considers this unsuitable for LDP prudential modeling because a strictly zero PD is not sufficiently conservative.
 
@@ -1086,62 +674,33 @@ and the normal interval may collapse to a zero PD estimate. The report considers
 
 The report writes the standardized variable as
 
-$$
-Z
-=
-\frac{\hat p-p}
-{\sqrt{\hat p(1-\hat p)/N}}.
-$$
+<p align="center"><img src="equations/eq_100.png" alt="Equation 100"></p>
 
 It recalls that
 
-$$
-\mathbb{E}(\hat p)=\mathbb{E}\left(\frac{k}{N}\right)
-$$
+<p align="center"><img src="equations/eq_101.png" alt="Equation 101"></p>
 
-$$
-\mathbb{E}(\hat p)=\frac{1}{N}\mathbb{E}(k)
-$$
+<p align="center"><img src="equations/eq_102.png" alt="Equation 102"></p>
 
-$$
-\mathbb{E}(\hat p)=\frac{1}{N}\mathbb{E}\left(\sum_{i=1}^{N}X_i\right)
-$$
+<p align="center"><img src="equations/eq_103.png" alt="Equation 103"></p>
 
-$$
-\mathbb{E}(\hat p)=\frac{1}{N}\sum_{i=1}^{N}\mathbb{E}(X_i)
-$$
+<p align="center"><img src="equations/eq_104.png" alt="Equation 104"></p>
 
-$$
-\boxed{\mathbb{E}(\hat p)=p}
-$$
+<p align="center"><img src="equations/eq_105.png" alt="Equation 105"></p>
 
 For the variance:
 
-$$
-\operatorname{Var}(\hat p)=\operatorname{Var}\left(\frac{k}{N}\right)
-$$
+<p align="center"><img src="equations/eq_106.png" alt="Equation 106"></p>
 
-$$
-\operatorname{Var}(\hat p)=\frac{1}{N^2}\operatorname{Var}(k)
-$$
+<p align="center"><img src="equations/eq_107.png" alt="Equation 107"></p>
 
-$$
-\operatorname{Var}(\hat p)=\frac{1}{N^2}Np(1-p)
-$$
+<p align="center"><img src="equations/eq_108.png" alt="Equation 108"></p>
 
-$$
-\boxed{\operatorname{Var}(\hat p)=\frac{p(1-p)}{N}}
-$$
+<p align="center"><img src="equations/eq_109.png" alt="Equation 109"></p>
 
 The associated standard deviation is
 
-$$
-\sigma_{\hat p}
-=
-\sqrt{
-\frac{p(1-p)}{N}
-}.
-$$
+<p align="center"><img src="equations/eq_110.png" alt="Equation 110"></p>
 
 The report's discussion is that, for convenience, the unknown $p$ is replaced by the noisy estimator $\hat p$ in this variance term.
 
@@ -1151,13 +710,7 @@ When $N$ is small, $\hat p$ can vary strongly from one sample to another.
 
 The report illustrates this idea by noting that different samples may produce values such as:
 
-$$
-\hat p=0,
-\qquad
-\hat p=\frac{1}{\sqrt N},
-\qquad
-\hat p=\frac{3}{\sqrt N}.
-$$
+<p align="center"><img src="equations/eq_111.png" alt="Equation 111"></p>
 
 The point of the example is that $\hat p$ can move sharply when the effective amount of information is low.
 
@@ -1167,34 +720,19 @@ The point of the example is that $\hat p$ can move sharply when the effective am
 
 The function
 
-$$
-f(x)=x(1-x)
-$$
+<p align="center"><img src="equations/eq_112.png" alt="Equation 112"></p>
 
 is concave because
 
-$$
-f''(x)=-2\lt 0.
-$$
+<p align="center"><img src="equations/eq_113.png" alt="Equation 113"></p>
 
 For a concave function, Jensen's inequality gives
 
-$$
-\mathbb{E}[f(X)]
-\le
-f(\mathbb{E}[X]).
-$$
+<p align="center"><img src="equations/eq_114.png" alt="Equation 114"></p>
 
 Taking $X=\hat p$:
 
-$$
-\mathbb{E}
-\left[
-\hat p(1-\hat p)
-\right]
-\le
-p(1-p).
-$$
+<p align="center"><img src="equations/eq_115.png" alt="Equation 115"></p>
 
 The report uses this to motivate a **downward bias in the plug-in variance term** $\hat p(1-\hat p)$ relative to $p(1-p)$.
 
@@ -1204,33 +742,11 @@ The consequence described in the report is an overly narrow interval for $p$.
 
 The desired interval has the form
 
-$$
-\mathbb{P}
-\left(
-\hat p-z\sigma_{\hat p}
-\le
-p
-\le
-\hat p+z\sigma_{\hat p}
-\right)
-\approx
-1-\alpha.
-$$
+<p align="center"><img src="equations/eq_116.png" alt="Equation 116"></p>
 
 Equivalently:
 
-$$
-\mathbb{P}
-\left(
-\hat p_{\mathrm{lower}}
-\le
-p
-\le
-\hat p_{\mathrm{upper}}
-\right)
-\approx
-1-\alpha.
-$$
+<p align="center"><img src="equations/eq_117.png" alt="Equation 117"></p>
 
 The report gives an illustrative comparison.
 
@@ -1262,12 +778,7 @@ This motivates the use of the **Wilson method**.
 
 The derivation starts again from
 
-$$
-\frac{\hat p-p}
-{\sqrt{p(1-p)/N}}
-\approx
-\mathcal{N}(0,1).
-$$
+<p align="center"><img src="equations/eq_118.png" alt="Equation 118"></p>
 
 The goal is to derive an interval by solving directly for $p$ rather than relying on the same plug-in structure as the Wald interval.
 
@@ -1275,157 +786,63 @@ The admissible values of $p$ are characterized through the score inequality.
 
 The derivation in the report proceeds to the quadratic inequality:
 
-$$
-|\hat p-p|
-\le
-z\sqrt{\frac{p(1-p)}{N}}.
-$$
+<p align="center"><img src="equations/eq_119.png" alt="Equation 119"></p>
 
 Squaring both sides:
 
-$$
-(\hat p-p)^2
-\le
-z^2\frac{p(1-p)}{N}.
-$$
+<p align="center"><img src="equations/eq_120.png" alt="Equation 120"></p>
 
 Multiplying by $N$:
 
-$$
-N(\hat p-p)^2
-\le
-z^2p(1-p).
-$$
+<p align="center"><img src="equations/eq_121.png" alt="Equation 121"></p>
 
 Expanding:
 
-$$
-N(\hat p^2-2\hat p p+p^2)
-\le
-z^2(p-p^2).
-$$
+<p align="center"><img src="equations/eq_122.png" alt="Equation 122"></p>
 
 Moving all terms to the left gives
 
-$$
-N\hat p^2
--
-2N\hat p p
-+
-Np^2
--
-z^2p
-+
-z^2p^2
-\le
-0.
-$$
+<p align="center"><img src="equations/eq_123.png" alt="Equation 123"></p>
 
 Therefore:
 
-$$
-\boxed{
-(z^2+N)p^2
--
-(2N\hat p+z^2)p
-+
-N\hat p^2
-\le
-0
-}.
-$$
+<p align="center"><img src="equations/eq_124.png" alt="Equation 124"></p>
 
 This is a quadratic inequality in $p$.
 
 Define the polynomial
 
-$$
-f(p)
-=
-(z^2+N)p^2
--
-(2N\hat p+z^2)p
-+
-N\hat p^2.
-$$
+<p align="center"><img src="equations/eq_125.png" alt="Equation 125"></p>
 
 The admissible PD values lie between the two roots.
 
 After algebraic simplification, the Wilson interval can be written in its standard form:
 
-$$
-p_{\mathrm{lower/upper}}
-=
-\frac{
-\hat p+\frac{z^2}{2N}
-\mp
-z\sqrt{
-\frac{\hat p(1-\hat p)}{N}
-+
-\frac{z^2}{4N^2}
-}
-}{
-1+\frac{z^2}{N}
-}.
-$$
+<p align="center"><img src="equations/eq_126.png" alt="Equation 126"></p>
 
 In a prudent setting, the project retains the upper root:
 
-$$
-\boxed{
-p_W
-=
-p_{\mathrm{upper}}
-=
-\frac{
-\hat p+\frac{z^2}{2N}
-+
-z\sqrt{
-\frac{\hat p(1-\hat p)}{N}
-+
-\frac{z^2}{4N^2}
-}
-}{
-1+\frac{z^2}{N}
-}
-}.
-$$
+<p align="center"><img src="equations/eq_127.png" alt="Equation 127"></p>
 
 ### Behavior when $k=0$
 
 When
 
-$$
-k=0,
-$$
+<p align="center"><img src="equations/eq_128.png" alt="Equation 128"></p>
 
 we also have
 
-$$
-\hat p=0.
-$$
+<p align="center"><img src="equations/eq_129.png" alt="Equation 129"></p>
 
 Then the upper Wilson bound becomes
 
-$$
-p_W=\frac{\frac{z^2}{2N}+z\sqrt{\frac{z^2}{4N^2}}}{1+\frac{z^2}{N}}
-$$
+<p align="center"><img src="equations/eq_130.png" alt="Equation 130"></p>
 
-$$
-\boxed{p_W=\frac{z^2/N}{1+z^2/N}}
-$$
+<p align="center"><img src="equations/eq_131.png" alt="Equation 131"></p>
 
 Therefore:
 
-$$
-\boxed{
-p_W(\hat p=0)
-=
-\frac{z^2/N}{1+z^2/N}
-\gt 
-0
-}.
-$$
+<p align="center"><img src="equations/eq_132.png" alt="Equation 132"></p>
 
 Even with no observed default, Wilson produces a strictly positive prudent bound.
 
@@ -1437,43 +854,17 @@ The Wilson method is presented as an improvement over the classical normal inter
 
 It starts from
 
-$$
-\frac{\hat p-p}{\sqrt{p(1-p)/N}}
-\approx
-\mathcal{N}(0,1)
-$$
+<p align="center"><img src="equations/eq_133.png" alt="Equation 133"></p>
 
 and solves the inequality in $p$ rather than substituting $\hat p$ for $p$ inside the variance at the critical step.
 
 The interval is bounded by roots
 
-$$
-p_1
-\le
-p
-\le
-p_2,
-$$
+<p align="center"><img src="equations/eq_134.png" alt="Equation 134"></p>
 
 and for prudential purposes the upper root is retained:
 
-$$
-p_W
-\equiv
-p_2
-=
-\frac{
-\hat p+\frac{z^2}{2N}
-+
-z\sqrt{
-\frac{\hat p(1-\hat p)}{N}
-+
-\frac{z^2}{4N^2}
-}
-}{
-1+\frac{z^2}{N}
-}.
-$$
+<p align="center"><img src="equations/eq_135.png" alt="Equation 135"></p>
 
 Here $z$ is the standard-normal quantile associated with the selected confidence level.
 
@@ -1485,11 +876,7 @@ Here $z$ is the standard-normal quantile associated with the selected confidence
 
 Unlike the normal interval
 
-$$
-\hat p
-\pm
-z\sqrt{\frac{\hat p(1-\hat p)}{N}},
-$$
+<p align="center"><img src="equations/eq_136.png" alt="Equation 136"></p>
 
 the Wilson method is not based on the same direct plug-in interval construction.
 
@@ -1499,13 +886,7 @@ The report argues that this reduces the coverage problems associated with unstab
 
 Even when no default is observed and $\hat p=0$, the upper Wilson bound remains strictly positive:
 
-$$
-p_W(\hat p=0)
-=
-\frac{z^2/N}{1+z^2/N}
-\gt 
-0.
-$$
+<p align="center"><img src="equations/eq_137.png" alt="Equation 137"></p>
 
 This is particularly useful in LDP prudential applications, where a zero PD is considered inappropriate.
 
@@ -1539,105 +920,55 @@ Wilson remains based on a normal approximation motivated by the Central Limit Th
 
 Recall:
 
-$$
-\hat p
-=
-\frac{k}{N},
-\qquad
-k
-\sim
-\mathrm{Binomial}(N,p).
-$$
+<p align="center"><img src="equations/eq_138.png" alt="Equation 138"></p>
 
 For large $N$,
 
-$$
-\frac{k-Np}{\sqrt{Np(1-p)}}
-\xrightarrow[N\to\infty]{}
-\mathcal{N}(0,1).
-$$
+<p align="center"><img src="equations/eq_139.png" alt="Equation 139"></p>
 
 Equivalently:
 
-$$
-\frac{\hat p-p}{\sqrt{p(1-p)/N}}
-\approx
-\mathcal{N}(0,1).
-$$
+<p align="center"><img src="equations/eq_140.png" alt="Equation 140"></p>
 
 The report stresses that reliability is not merely a matter of "$N$ being large."
 
 A good normal approximation requires a regime in which both
 
-$$
-Np\to\infty
-$$
+<p align="center"><img src="equations/eq_141.png" alt="Equation 141"></p>
 
 and
 
-$$
-N(1-p)\to\infty.
-$$
+<p align="center"><img src="equations/eq_142.png" alt="Equation 142"></p>
 
 Practical rules of thumb are often written as
 
-$$
-Np\ge5,
-\qquad
-N(1-p)\ge5.
-$$
+<p align="center"><img src="equations/eq_143.png" alt="Equation 143"></p>
 
 Indeed, for
 
-$$
-k
-=
-\sum_{i=1}^{N}X_i,
-\qquad
-X_i
-\sim
-\mathrm{Bernoulli}(p),
-$$
+<p align="center"><img src="equations/eq_144.png" alt="Equation 144"></p>
 
 we have
 
-$$
-\mathbb{E}[k]
-=
-Np,
-$$
+<p align="center"><img src="equations/eq_145.png" alt="Equation 145"></p>
 
 and
 
-$$
-\operatorname{Var}(k)
-=
-Np(1-p).
-$$
+<p align="center"><img src="equations/eq_146.png" alt="Equation 146"></p>
 
 The Central Limit Theorem gives
 
-$$
-\frac{k-Np}{\sqrt{Np(1-p)}}
-\xrightarrow[N\to\infty]{}
-\mathcal{N}(0,1),
-$$
+<p align="center"><img src="equations/eq_147.png" alt="Equation 147"></p>
 
 but the approximation is meaningful when the variance
 
-$$
-Np(1-p)
-$$
+<p align="center"><img src="equations/eq_148.png" alt="Equation 148"></p>
 
 becomes sufficiently large.
 
 Therefore one needs, in practice,
 
-$$
-Np\to\infty
-\qquad\text{and}\qquad
-N(1-p)\to\infty.
-$$
+<p align="center"><img src="equations/eq_149.png" alt="Equation 149"></p>
 
 These conditions ensure that there are sufficiently many expected defaults and non-defaults for the binomial distribution to become smooth and approximately symmetric.
 
@@ -1645,26 +976,13 @@ By contrast, in an LDP, $Np$ may remain very small even when $N$ itself is large
 
 The report gives the example:
 
-$$
-N=5000,
-\qquad
-p=0.0002
-\;(0.02\%),
-\qquad
-Np=1.
-$$
+<p align="center"><img src="equations/eq_150.png" alt="Equation 150"></p>
 
 Although $N$ is large, the expected number of defaults is only 1.
 
 The distribution of $k$ is then highly concentrated on small integer values and is close to a Poisson distribution with parameter
 
-$$
-\lambda
-=
-Np
-=
-1,
-$$
+<p align="center"><img src="equations/eq_151.png" alt="Equation 151"></p>
 
 which is far from a symmetric bell-shaped distribution.
 
@@ -1746,94 +1064,43 @@ The mathematical development of the project follows the sequence below.
 
 ### 1. Base LDP problem
 
-$$
-k
-\sim
-\mathrm{Binomial}(N,p),
-\qquad
-\hat p
-=
-\frac{k}{N}.
-$$
+<p align="center"><img src="equations/eq_152.png" alt="Equation 152"></p>
 
 Empirical PD is unstable when only a few defaults are observed.
 
 ### 2. Classical prudent Pluto–Tasche-type estimate
 
-$$
-p
-\sim
-\mathrm{Beta}(k+1,N-k),
-$$
+<p align="center"><img src="equations/eq_153.png" alt="Equation 153"></p>
 
 and a high quantile $p^\star$ is retained.
 
 ### 3. Generalized Beta prior
 
-$$
-p
-\sim
-\mathrm{Beta}(\alpha,\beta),
-$$
+<p align="center"><img src="equations/eq_154.png" alt="Equation 154"></p>
 
 leading to
 
-$$
-p\mid(k,N)
-\sim
-\mathrm{Beta}(\alpha+k,\beta+N-k).
-$$
+<p align="center"><img src="equations/eq_155.png" alt="Equation 155"></p>
 
 ### 4. Hierarchical model
 
-$$
-p_j
-\sim
-\mathrm{Beta}(\alpha,\beta),
-$$
+<p align="center"><img src="equations/eq_156.png" alt="Equation 156"></p>
 
 with
 
-$$
-p_j\mid(k_j,N_j)
-\sim
-\mathrm{Beta}(\alpha+k_j,\beta+N_j-k_j).
-$$
+<p align="center"><img src="equations/eq_157.png" alt="Equation 157"></p>
 
 Shared hyperparameters produce **shrinkage**.
 
 ### 5. Empirical-Bayes calibration
 
-$$
-L(\alpha,\beta)
-=
-\prod_{j=1}^{J}
-\frac{
-B(\alpha+k_j,\beta+N_j-k_j)
-}{
-B(\alpha,\beta)
-}.
-$$
+<p align="center"><img src="equations/eq_158.png" alt="Equation 158"></p>
 
 The hyperparameters are estimated from the data.
 
 ### 6. Frequentist benchmark: Wilson
 
-$$
-p_W
-=
-\frac{
-\hat p+\frac{z^2}{2N}
-+
-z\sqrt{
-\frac{\hat p(1-\hat p)}{N}
-+
-\frac{z^2}{4N^2}
-}
-}{
-1+\frac{z^2}{N}
-}.
-$$
+<p align="center"><img src="equations/eq_159.png" alt="Equation 159"></p>
 
 Wilson provides a closed-form prudent upper bound but no hierarchical information-sharing mechanism.
 
